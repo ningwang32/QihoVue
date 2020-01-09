@@ -1,11 +1,20 @@
 
 <template>
   <div class="list">
-    <list-header>
-      <list-header-item :headerItemData="headerItemData1"></list-header-item>
-      <list-header-item :headerItemData="headerItemData2"></list-header-item>
-      <list-header-item :headerItemData="headerItemData3"></list-header-item>
-    </list-header>
+    <el-form :inline="true" :model="formInline" class="demo-form-inline">
+      <el-form-item label="审批人">
+        <el-input v-model="formInline.user" placeholder="审批人"></el-input>
+      </el-form-item>
+      <el-form-item label="活动区域">
+        <el-select v-model="formInline.region" placeholder="活动区域">
+          <el-option label="区域一" value="shanghai"></el-option>
+          <el-option label="区域二" value="beijing"></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">查询</el-button>
+      </el-form-item>
+    </el-form>
     <el-table :data="paginationData.tableList" style="width: 100%" :default-sort = "{prop: 'date', order: 'descending'}">
       <el-table-column prop="TITLE" label="标题" width="300">
       </el-table-column>
@@ -23,29 +32,33 @@
 <script>
 // @ is an alias to /src
 import Pagination from '../components/Pagination'
-import ListHeader from '../components/ListHeader/ListHeader.vue'
-import ListHeaderItem from '../components/ListHeader/ListHeaderItem.vue'
+// import ListHeader from '../components/ListHeader/ListHeader.vue'
+// import ListHeaderItem from '../components/ListHeader/ListHeaderItem.vue'
 import { request } from '../network/request'
 export default {
   name: 'home',
   components: {
-    Pagination, ListHeader, ListHeaderItem
+    Pagination
   },
   data () {
     return {
-      tableData: [],
-      headerItemData1: {
-        lableName: '手机号',
-        placeholder: '请输入手机号'
+      formInline: {
+        user: '',
+        region: ''
       },
-      headerItemData2: {
-        lableName: '手机号',
-        placeholder: '请输入手机号'
-      },
-      headerItemData3: {
-        lableName: '类别',
-        placeholder: '请选择类别'
-      },
+      // tableData: [],
+      // headerItemData1: {
+      //   lableName: '姓名',
+      //   placeholder: '请输入姓名'
+      // },
+      // headerItemData2: {
+      //   lableName: '手机号',
+      //   placeholder: '请输入手机号'
+      // },
+      // headerItemData3: {
+      //   lableName: '类别',
+      //   placeholder: '请选择类别'
+      // },
       paginationData: {
         pageSize: 20,
         currentPage: 1,
@@ -86,6 +99,11 @@ export default {
     }).catch(err => {
       console.log(err)
     })
+  },
+  methods: {
+    onSubmit () {
+      console.log('submit!')
+    }
   }
 }
 </script>
