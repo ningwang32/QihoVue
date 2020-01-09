@@ -1,6 +1,11 @@
 
 <template>
-  <div class="about">
+  <div class="list">
+    <list-header>
+      <list-header-item :headerItemData="headerItemData1"></list-header-item>
+      <list-header-item :headerItemData="headerItemData2"></list-header-item>
+      <list-header-item :headerItemData="headerItemData3"></list-header-item>
+    </list-header>
     <el-table :data="paginationData.tableList" style="width: 100%" :default-sort = "{prop: 'date', order: 'descending'}">
       <el-table-column prop="TITLE" label="标题" width="300">
       </el-table-column>
@@ -18,15 +23,29 @@
 <script>
 // @ is an alias to /src
 import Pagination from '../components/Pagination'
+import ListHeader from '../components/ListHeader/ListHeader.vue'
+import ListHeaderItem from '../components/ListHeader/ListHeaderItem.vue'
 import { request } from '../network/request'
 export default {
   name: 'home',
   components: {
-    Pagination
+    Pagination, ListHeader, ListHeaderItem
   },
   data () {
     return {
       tableData: [],
+      headerItemData1: {
+        lableName: '手机号',
+        placeholder: '请输入手机号'
+      },
+      headerItemData2: {
+        lableName: '手机号',
+        placeholder: '请输入手机号'
+      },
+      headerItemData3: {
+        lableName: '类别',
+        placeholder: '请选择类别'
+      },
       paginationData: {
         pageSize: 20,
         currentPage: 1,
@@ -41,7 +60,6 @@ export default {
         },
         currentChangePage (list, currentPage, data) {
           var that = this
-          console.log(list, currentPage, data)
           let from = (currentPage - 1) * that.pageSize
           let to = currentPage * that.pageSize
           that.tableList = []
