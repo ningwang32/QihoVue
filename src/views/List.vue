@@ -13,16 +13,17 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="goInfo">新增</el-button>
       </el-form-item>
     </el-form>
-    <el-table :data="paginationData.tableList" style="width: 100%" :default-sort = "{prop: 'date', order: 'descending'}">
+    <el-table :data="paginationData.tableList" style="width: 100%" :default-sort="{prop: 'date', order: 'descending'}">
       <el-table-column prop="TITLE" label="标题" width="300">
       </el-table-column>
-      <el-table-column  prop="RANK"  label="权重">
+      <el-table-column prop="RANK" label="权重">
       </el-table-column>
-      <el-table-column  prop="CREATEDATE"  label="发布时间">
+      <el-table-column prop="CREATEDATE" label="发布时间">
       </el-table-column>
-      <el-table-column  prop="DRAFTER"  label="发布人">
+      <el-table-column prop="DRAFTER" label="发布人">
       </el-table-column>
     </el-table>
     <Pagination :paginationData="paginationData" :totalData="totalData"></Pagination>
@@ -103,6 +104,9 @@ export default {
   methods: {
     onSubmit () {
       console.log('submit!')
+    },
+    goInfo () {
+      this.$router.push('/info')
     }
   }
 }
