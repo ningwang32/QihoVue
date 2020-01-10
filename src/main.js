@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import 'element-ui/lib/theme-chalk/index.css'
+import { request } from './network/request'
 import {
   Pagination,
   Dialog,
@@ -83,7 +84,6 @@ import {
   Notification
 } from 'element-ui'
 Vue.config.productionTip = false
-
 Vue.use(Pagination)
 Vue.use(Dialog)
 Vue.use(Autocomplete)
@@ -159,7 +159,7 @@ Vue.use(PageHeader)
 Vue.use(CascaderPanel)
 
 Vue.use(Loading.directive)
-
+Vue.prototype.$axios = request
 Vue.prototype.$loading = Loading.service
 Vue.prototype.$msgbox = MessageBox
 Vue.prototype.$alert = MessageBox.alert
