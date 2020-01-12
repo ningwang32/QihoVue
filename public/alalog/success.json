@@ -1,0 +1,72 @@
+{
+    "data": [
+        {
+            "name": "名字",
+            "type": "text",
+            "value": "这是一个名字1",
+            "verific": "",
+            "langlengh": 20
+        },
+        {
+            "name": "年龄",
+            "type": "number",
+            "value": 12,
+            "verific": ""
+        },
+        {
+            "name": "下拉选择",
+            "type": "select",
+            "value": [
+                {
+                    "selectValue": "请选择"
+                },
+                {
+                    "selectValue": "是"
+                },
+                {
+                    "selectValue": "否"
+                }
+            ]
+        },
+        {
+            "name": "活动开关",
+            "type": "switch",
+            "value": false
+        },
+        {
+            "name": "多选",
+            "type": "checkbox",
+            "value": [
+                {
+                    "checkboxValue": "选项1"
+                },
+                {
+                    "checkboxValue": "选项2"
+                },
+                {
+                    "checkboxValue": "选项3"
+                },
+                {
+                    "checkboxValue": "选项4"
+                }
+            ]
+        },
+        {
+            "name": "单选",
+            "type": "radio",
+            "value": [
+                {
+                    "radioValue": "单选1"
+                },
+                {
+                    "radioValue": "单选2"
+                }
+            ]
+        },
+        {
+            "name": "多行文本输入框",
+            "type": "textarea",
+            "value": ""
+        }
+    ]
+}
