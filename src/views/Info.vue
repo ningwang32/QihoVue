@@ -1,5 +1,6 @@
 <template>
   <div>
+    <el-button type="primary" @click="goBack">返回</el-button>
     <el-form ref="form" :model="form" label-width="80px">
       <div v-for="(item,index) in infoData" :key="index">
         <!-- 如果是text -->
@@ -9,12 +10,8 @@
         <!-- 如果是select -->
         <el-form-item v-if="item.type=='select'" :label="item.name">
           <el-select v-model="form.region">
-            <el-option
-              :label="item.selectValue"
-              :value="item.selectValue"
-              v-for="(item,index) in item.value"
-              :key="index"
-            ></el-option>
+            <el-option :label="item.selectValue" :value="item.selectValue" v-for="(item,index) in item.value"
+              :key="index"></el-option>
           </el-select>
         </el-form-item>
         <!-- 滑动开关 -->
@@ -24,12 +21,8 @@
         <!-- 多选 -->
         <el-form-item v-if="item.type=='checkbox'" :label="item.name">
           <el-checkbox-group v-model="form.type">
-            <el-checkbox
-              v-for="(item,index) in item.value"
-              :label="item.checkboxValue"
-              name="type"
-              :key="index"
-            ></el-checkbox>
+            <el-checkbox v-for="(item,index) in item.value" :label="item.checkboxValue" name="type" :key="index">
+            </el-checkbox>
           </el-checkbox-group>
         </el-form-item>
         <!-- 单选 -->
@@ -52,7 +45,7 @@ export default {
   components: {
 
   },
-  data() {
+  data () {
     return {
       infoData: null,
       form: {
@@ -67,12 +60,17 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     axios
       .get("alalog/success.json")
       .then(response => {
         this.infoData = response.data.data
       })
+  },
+  methods: {
+    goBack () {
+      this.$router.go(-1)
+    }
   }
 }
 </script>
