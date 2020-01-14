@@ -38,9 +38,15 @@
             <el-radio :label="item.radioValue" v-for="(item,index) in item.value" :key="index"></el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item v-if="item.type=='textarea'" :label="item.name">
+        <!-- 多行文本输入框 -->
+        <el-form-item
+          v-if="item.type=='textarea'"
+          :label="item.name"
+          :label-width="item.labelWidth"
+        >
           <el-input type="textarea" v-model="form.desc"></el-input>
         </el-form-item>
+        
       </div>
     </el-form>
   </div>
