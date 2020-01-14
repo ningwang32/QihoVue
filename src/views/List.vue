@@ -96,6 +96,7 @@ export default {
     }
   },
   mounted: function () {
+    console.log(this)
     var that = this
     this.$axios({
       url: 'web/urs/ptdt/jl'
@@ -119,7 +120,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .list .el-form-item {
   margin-right: 10px;
   font-size: 12px;
