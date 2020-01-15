@@ -142,12 +142,6 @@ export default {
             item.CONTENT = con.replace(/<[^>]+>/g,"").replace(/&nbsp;/ig,"")
             return item
         })
-        console.log(that.tableData)
-        // for(i in that.tableData){
-        //   var con = newData[i].CONTENT
-        //   con = con.replace(/<[^>]+>/g,"").replace(/&nbsp;/ig,"")
-        // }
-        // console.log(newData)
         that.paginationData.tableList = that.tableData
         that.totalData = parseInt(res.data.data[1])
         return that.tableData + that.totalData + that.paginationData.tableList
@@ -158,7 +152,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .list .el-form-item {
   margin-right: 10px;
   font-size: 12px;

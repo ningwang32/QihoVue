@@ -1,36 +1,87 @@
 <template>
   <div>
-    <editor
-      api-key="no-api-key"
-      initialValue="<p>This is the initial content of the editor</p>"
-      :init="{
-         height: 500,
-         menubar: false,
-         plugins: [
-           'advlist autolink lists link image charmap print preview anchor',
-           'searchreplace visualblocks code fullscreen',
-           'insertdatetime media table paste code help wordcount'
-         ],
-         toolbar:
-           'undo redo | formatselect | bold italic backcolor | \
-           alignleft aligncenter alignright alignjustify | \
-           bullist numlist outdent indent | removeformat | help'
-       }"
-    ></editor>
+    <el-button type="primary" @click="goBack">返回</el-button>
+    <el-form ref="form" :model="form" label-width="80px">
+      <div v-for="(item,index) in infoData" :key="index">
+        <!-- 如果是text -->
+        <el-form-item v-if="item.type=='text'" :label="item.name">
+          <el-input v-model="item.value"></el-input>
+        </el-form-item>
+        <!-- 如果是select -->
+        <el-form-item v-if="item.type=='select'" :label="item.name">
+          <el-select v-model="form.region">
+            <el-option :label="item.selectValue" :value="item.selectValue" v-for="(item,index) in item.value"
+              :key="index"></el-option>
+          </el-select>
+        </el-form-item>
+        <!-- 滑动开关 -->
+        <el-form-item v-if="item.type=='switch'" :label="item.name">
+          <el-switch v-model="item.value"></el-switch>
+        </el-form-item>
+        <!-- 多选 -->
+        <el-form-item v-if="item.type=='checkbox'" :label="item.name">
+          <el-checkbox-group v-model="form.type">
+            <el-checkbox v-for="(item,index) in item.value" :label="item.checkboxValue" name="type" :key="index">
+            </el-checkbox>
+          </el-checkbox-group>
+        </el-form-item>
+        <!-- 单选 -->
+        <el-form-item v-if="item.type=='radio'" :label="item.name">
+          <el-radio-group v-model="form.resource">
+            <el-radio :label="item.radioValue" v-for="(item,index) in item.value" :key="index"></el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <!-- 多行文本输入框 -->
+        <el-form-item
+          v-if="item.type=='textarea'"
+          :label="item.name"
+          :label-width="item.labelWidth"
+        >
+          <el-input type="textarea" v-model="form.desc"></el-input>
+        </el-form-item>
+        
+      </div>
+    </el-form>
   </div>
 </template>
 <script>
-import Editor from '@tinymce/tinymce-vue'
-console.log(Editor)
+import axios from 'axios'
 export default {
   name: 'info',
   components: {
-    'editor': Editor
-  },
-  data() {
-    return {
 
+  },
+  data () {
+    return {
+      infoData: null,
+      form: {
+        name: '',
+        region: '',
+        date1: '',
+        date2: '',
+        delivery: false,
+        type: [],
+        resource: '',
+        desc: ''
+      }
+    }
+  },
+  mounted () {
+    axios
+      .get("alalog/success.json")
+      .then(response => {
+        this.infoData = response.data.data
+      })
+  },
+  methods: {
+    goBack () {
+      this.$router.go(-1)
     }
   }
 }
 </script>
+<style scoped>
+li {
+  list-style: none;
+}
+</style>
