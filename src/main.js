@@ -2,8 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import Axios from 'axios'
 import 'element-ui/lib/theme-chalk/index.css'
-import { request } from './network/request'
+import{ geturl, geturltime, posturl, postfile } from './router/ajax'
 import {
   Pagination,
   Dialog,
@@ -159,7 +160,6 @@ Vue.use(PageHeader)
 Vue.use(CascaderPanel)
 
 Vue.use(Loading.directive)
-Vue.prototype.$axios = request
 Vue.prototype.$loading = Loading.service
 Vue.prototype.$msgbox = MessageBox
 Vue.prototype.$alert = MessageBox.alert
@@ -167,6 +167,8 @@ Vue.prototype.$confirm = MessageBox.confirm
 Vue.prototype.$prompt = MessageBox.prompt
 Vue.prototype.$notify = Notification
 Vue.prototype.$message = Message
+Vue.prototype.$axios = Axios
+Vue.prototype.$ajax = { geturl, geturltime, posturl, postfile };
 new Vue({
   router,
   store,

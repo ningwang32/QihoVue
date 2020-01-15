@@ -14,18 +14,25 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">查询</el-button>
-        <el-button type="primary" @click="goInfo">新增</el-button>
+        <el-button type="primary" @click="getsList(20,1)">新增</el-button>
       </el-form-item>
     </el-form>
     <el-table :data="paginationData.tableList" style="width: 100%" height="500" border
       :default-sort="{prop: 'date', order: 'descending'}">
-      <el-table-column prop="TITLE" label="标题" width="300">
+      <el-table-column label="标题" prop="TITLE" width="300">
+        <template slot-scope="scope">
+            <div :title="scope.row.TITLE" class="td-title">
+              {{ scope.row.TITLE  }}
+            </div>
+        </template>
       </el-table-column>
-      <el-table-column prop="RANK" label="权重">
+      <el-table-column prop="RANK" label="权重" width="60">
       </el-table-column>
       <el-table-column prop="CREATEDATE" label="发布时间" width="160">
       </el-table-column>
-      <el-table-column prop="DRAFTER" label="发布人">
+      <el-table-column prop="DRAFTER" label="发布人" width="120">
+      </el-table-column>
+      <el-table-column prop="CONTENT" label="内容">
       </el-table-column>
     </el-table>
     <Pagination :paginationData="paginationData" :totalData="totalData"></Pagination>
@@ -35,9 +42,10 @@
 <script>
 // @ is an alias to /src
 import Pagination from '../components/Pagination'
+//import ajax from '../network/request'
 // import ListHeader from '../components/ListHeader/ListHeader.vue'
 // import ListHeaderItem from '../components/ListHeader/ListHeaderItem.vue'
-// import { request } from '../network/request'
+import { getsList } from '../network/request'
 export default {
   name: 'home',
   components: {
@@ -75,8 +83,10 @@ export default {
         handleSizeChange: val => {
           this.paginationData.pageSize = val
           this.paginationData.handleCurrentChange(this.paginationData.currentPage)
+          this.getsList(this.paginationData.currentPage,val)
         },
         handleCurrentChange: val => {
+          this.getsList(this.paginationData.pageSize,val)
           this.paginationData.currentPage = val
           this.paginationData.currentChangePage(this.paginationData.tableList, val, this.tableData)
         },
@@ -96,18 +106,20 @@ export default {
     }
   },
   mounted: function () {
-    var that = this
-    this.$axios({
-      url: 'web/urs/ptdt/jl'
-    }).then(res => {
-      that.tableData = res.data
-      that.paginationData.tableList = that.tableData
-      that.totalData = parseInt(res.code)
-      console.log(that.paginationData.tableList[0])
-      return that.tableData + that.totalData + that.paginationData.tableList
-    }).catch(err => {
-      console.log(err)
-    })
+    // var that = this
+    // this.$axios({
+    //   url: 'web/urs/ptdt/jl'
+    // }).then(res => {
+    //   that.tableData = res.data
+    //   that.paginationData.tableList = that.tableData
+    //   that.totalData = parseInt(res.code)
+    //   return that.tableData + that.totalData + that.paginationData.tableList
+    // }).catch(err => {
+    //   console.log(err)
+    // })
+  },
+  created:function(){
+    this.getsList(20,1)
   },
   methods: {
     onSubmit () {
@@ -115,6 +127,33 @@ export default {
     },
     goInfo () {
       this.$router.push('/info')
+    },
+    getsList(size,current){
+      var that = this
+      that.$ajax.posturl(
+        "http://27.223.18.246:11310/web/urs/ptdt/jl?_anyline_page_rows=" +size +"&_anyline_page=" +current
+      ).then(res => {
+        var newData = new Array();
+        that.tableData = res.data.data[0]
+        
+        newData = that.tableData;
+        that.tableData.map(item => {
+            var con = item.CONTENT
+            item.CONTENT = con.replace(/<[^>]+>/g,"").replace(/&nbsp;/ig,"")
+            return item
+        })
+        console.log(that.tableData)
+        // for(i in that.tableData){
+        //   var con = newData[i].CONTENT
+        //   con = con.replace(/<[^>]+>/g,"").replace(/&nbsp;/ig,"")
+        // }
+        // console.log(newData)
+        that.paginationData.tableList = that.tableData
+        that.totalData = parseInt(res.data.data[1])
+        return that.tableData + that.totalData + that.paginationData.tableList
+      }).catch(err => {
+        console.log(err)
+      });
     }
   }
 }
@@ -153,20 +192,24 @@ export default {
 .list .el-table th {
   padding: 0px;
 }
-.list .el-table .cell {
+.list .el-table .cell,.td-title{
   line-height: 30px;
   font-size: 12px;
-  white-space: nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
 }
 .list .el-table--border td,
 .list .el-table--border th,
-.list
-  .el-table__body-wrapper
-  .el-table--border.is-scrolling-left
-  ~ .el-table__fixed {
+.list .el-table__body-wrapper .el-table--border.is-scrolling-left  ~ .el-table__fixed {
   border-color: #e6e6e6;
 }
 .list .el-table thead {
   color: #666;
+}
+.list .el-popover{
+  padding: 0px 10px;
+  line-height: inherit;
+  font-size: 12px;
 }
 </style>
