@@ -5,17 +5,20 @@
             "type": "text",
             "value": "这是一个名字1",
             "verific": "",
-            "langlengh": 20
+            "langlengh": 20,
+            "labelWidth": "120px"
         },
         {
             "name": "年龄:",
             "type": "number",
             "value": 12,
-            "verific": ""
+            "verific": "",
+            "labelWidth": "120px"
         },
         {
             "name": "下拉选择:",
             "type": "select",
+            "labelWidth": "120px",
             "value": [
                 {
                     "selectValue": "请选择"
@@ -31,11 +34,13 @@
         {
             "name": "活动开关:",
             "type": "switch",
-            "value": false
+            "value": false,
+            "labelWidth": "120px"
         },
         {
             "name": "多选:",
             "type": "checkbox",
+            "labelWidth": "120px",
             "value": [
                 {
                     "checkboxValue": "选项1"
@@ -54,6 +59,7 @@
         {
             "name": "单选:",
             "type": "radio",
+            "labelWidth": "120px",
             "value": [
                 {
                     "radioValue": "单选1"
@@ -66,6 +72,12 @@
         {
             "name": "多行文本输入框:",
             "type": "textarea",
+            "value": "",
+            "labelWidth": "120px"
+        },
+        {
+            "name": "时间:",
+            "type": "datetime",
             "value": "",
             "labelWidth": "120px"
         }
