@@ -3,7 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import Axios from 'axios'
-import { geturl, geturltime, posturl, postfile } from './router/ajax'
+import { geturl, geturltime, posturl, postfile } from './network/request'
 import 'element-ui/lib/theme-chalk/index.css'
 import {
   Pagination,

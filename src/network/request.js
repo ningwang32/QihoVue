@@ -32,3 +32,49 @@ export const getsList = (current,size,page)=>{
     data:page
   })
 }
+
+/**************************************
+ *Module：basequanjucanshuAPIJS
+ *Author：李晓伟
+ *Time: 2019-08-16 15:36:48
+ **************************************/
+
+export const geturl = (url, params) => {
+  return request({
+    url: url,
+    method: "get",
+    params: {
+      ...params
+    }
+  });
+};
+
+export const postfile = (url, fd) => {
+  return request.post(url, fd, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  });
+};
+
+export const geturltime = (url, params, timeout) => {
+  return request({
+    url: url,
+    method: "get",
+    params: {
+      ...params
+    },
+    timeout: timeout
+  });
+};
+
+export const posturl = (url, row, params) => {
+  return request({
+    url: url,
+    method: "post",
+    data: row, //body
+    params: {
+      ...params
+    }
+  });
+};
