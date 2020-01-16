@@ -4,7 +4,6 @@ import router from './router'
 import store from './store'
 import Axios from 'axios'
 import 'element-ui/lib/theme-chalk/index.css'
-import{ geturl, geturltime, posturl, postfile } from './router/ajax'
 import {
   Pagination,
   Dialog,
@@ -168,7 +167,6 @@ Vue.prototype.$prompt = MessageBox.prompt
 Vue.prototype.$notify = Notification
 Vue.prototype.$message = Message
 Vue.prototype.$axios = Axios
-Vue.prototype.$ajax = { geturl, geturltime, posturl, postfile };
 new Vue({
   router,
   store,
