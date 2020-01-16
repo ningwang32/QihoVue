@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import List from '../views/List.vue'
-import Info from '../views/Info.vue'
 
 Vue.use(VueRouter)
 
@@ -9,12 +7,12 @@ const routes = [
   {
     path: '/',
     name: 'list',
-    component: List
+    component: () => important('../views/List.vue')
   },
   {
     path: '/info',
     name: 'info',
-    component: Info
+    component: () => important('../views/Info.vue')
   }
 ]
 
@@ -23,5 +21,4 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-
 export default router
