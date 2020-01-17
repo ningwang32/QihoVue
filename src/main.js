@@ -168,11 +168,8 @@ Vue.prototype.$prompt = MessageBox.prompt
 Vue.prototype.$notify = Notification
 Vue.prototype.$message = Message
 Vue.prototype.$axios = Axios
-<<<<<<< Updated upstream
 Vue.prototype.$ajax = { geturl, geturltime, posturl, postfile };
-=======
 Vue.prototype.$qs = qs;
->>>>>>> Stashed changes
 new Vue({
   router,
   store,
