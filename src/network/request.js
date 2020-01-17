@@ -22,14 +22,17 @@ import axios from 'axios'
 //   return instance(config)
 // }
 import request from 'axios'
-export const getsList = (current,size,page)=>{
+export const getsList = (current, size, page) => {
   return request({
-    url:'http://27.223.18.246:11310/js/usr/ptdt/s',
-    method:'post',
-    params:{
-      current,size
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
     },
-    data:page
+    url: 'http://27.223.18.246:11310/js/usr/ptdt/s',
+    method: 'post',
+    params: {
+      current, size
+    },
+    data: page
   })
 }
 

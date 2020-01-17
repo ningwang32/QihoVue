@@ -82,18 +82,20 @@
 
       <!-- 图片上传 -->
       <el-upload
-        action="http://file.qnlm.ac/plugin/admin/heavy/"
+        action="123"
         list-type="picture-card"
         :auto-upload="true"
         :file-list="addForm.files"
-        :on-error="uploadSuccess"
+        :on-success="uploadSuccess"
+        :before-upload="beforeAvatarUpload"
         :drag="true"
       >
+        <!-- uploadSuccess 上传成功的钩子 -->
         <i slot="default" class="el-icon-plus"></i>
         <div slot="file" slot-scope="{file}">
           <img class="el-upload-list__item-thumbnail" :src="file.url" alt />
-          <span class="el-upload-list__item-actions">
-            <span class="el-upload-list__item-preview" @click="handlePictureCardPreview(file)">
+          <span class="el-upload-list__item-actions" @click="handlePictureCardPreview(file)">
+            <span class="el-upload-list__item-preview">
               <i class="el-icon-zoom-in"></i>
             </span>
             <span
@@ -141,7 +143,7 @@ export default {
         desc: ''
       },
       addForm: {
-        files: [{ name: 'xxx.jpg', url: 'http://dl.ppt123.net/pptbj/201603/2016030410190920.jpg' }, { name: 'xxx2.jpg', url: 'http://c.hiphotos.baidu.com/zhidao/pic/item/d009b3de9c82d1587e249850820a19d8bd3e42a9.jpg' }]
+        files: [{ name: 'xxx.jpg', url: 'https://i04picsos.sogoucdn.com/eaf3429de82452cb' }, { name: 'xxx2.jpg', url: 'https://img04.sogoucdn.com/app/a/100520021/673b604374f9bf4d4984e31767be42d8' }]
       }
     }
   },
@@ -164,6 +166,7 @@ export default {
       //delete file
     },
     handlePictureCardPreview(file) {
+      console.log(file)
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
@@ -173,7 +176,12 @@ export default {
     uploadSuccess(response, file, fileList) {
       let files = { name: response, url: response };
       this.addForm.files.push(files);
-      console.log(this.addForm.files)
+    },
+    // 上传成功之后的回调
+    beforeAvatarUpload(file) {
+      axios.post('http://file.qnlm.ac/up?token=hWHaBE0DqtCeLSiwZvXrAGiXpRELoufr', {
+        file: file
+      })
     }
   }
 }

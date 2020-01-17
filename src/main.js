@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import Axios from 'axios'
 import { geturl, geturltime, posturl, postfile } from './network/request'
+import qs from 'qs'
 import 'element-ui/lib/theme-chalk/index.css'
 import {
   Pagination,
@@ -167,7 +168,11 @@ Vue.prototype.$prompt = MessageBox.prompt
 Vue.prototype.$notify = Notification
 Vue.prototype.$message = Message
 Vue.prototype.$axios = Axios
+<<<<<<< Updated upstream
 Vue.prototype.$ajax = { geturl, geturltime, posturl, postfile };
+=======
+Vue.prototype.$qs = qs;
+>>>>>>> Stashed changes
 new Vue({
   router,
   store,
